@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from "react-router-dom";
+import HomePage from './components/HomePage';
+import Header from './components/Header';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import Gift from './components/Gift';
+import EditUser from './components/EditUser';
+import WishList from './components/WishList';
+import NewEvent from './components/NewEvent';
+import Address from './components/Address';
+
+import 'bulma/css/bulma.css'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+			<Header />
+			{/* <Route path="/" component={Header} /> */}
+			<Switch>
+				<Route path="/" exact component={HomePage} />
+				<Route path="/login" component={LoginPage} />
+				<Route path="/register" component={RegisterPage} />
+				<Route path="/gift" component={Gift} />
+				<Route path="/event" component={NewEvent} />
+				<Route path="/address" component={Address} />
+				<Route path="/editUser" component={EditUser} />
+				<Route path="/wishList" component={WishList} />
+			</Switch>
     </div>
   );
 }

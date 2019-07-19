@@ -6,6 +6,7 @@ const giftSchema = new Schema({
     "itemURL": {type: String, required: true},
     "price": {type: Number, required: true},
     "isGifted":{type: Boolean, default:false},
+    "image": {type: String},
     "giftedBy":{type: String, default:""},
     "event": {type: Schema.Types.ObjectId, ref: "Event"},
 }, {timestamps: true});
@@ -18,6 +19,7 @@ giftSchema.methods.toJSONFor = function(user){
       price: this.price,
       isGifted: this.isGifted,
       giftedBy: this.giftedBy,
+      image: this.image,
       createdAt: this.createdAt,
       event: this.event.toJSONFor()
     };
