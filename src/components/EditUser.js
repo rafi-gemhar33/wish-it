@@ -150,7 +150,7 @@ export default class EditUser extends React.Component {
 					<div className="field is-grouped">
 						<div className="control">
 							<button
-								className="button is-success "
+								className="button is-info "
 								onClick={this.updateProfile}
 							>
 								Update Settings

@@ -9,8 +9,4 @@ router.use('/users', usersRouter);
 router.use('/addresses', addressesRouter);
 router.use('/events', eventsRouter);
 
-router.get('/',(req, res) => {
-    res.send('in api router GET');
-})
-
 module.exports = router;

@@ -1,35 +1,72 @@
 .title .logo {
-  color: snow;
-
+	color: snow;
 }
 
 .navbar-brand .title {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .sign-header {
-  text-align: center;
-  margin-bottom: 15px;
+	text-align: center;
+	margin-bottom: 15px;
 }
 
 .sign-header .green-text {
-  color: cornflowerblue;
+	color: cornflowerblue;
 }
 
 .create-btn {
-  text-align: center;
+	text-align: center;
 }
 
 .search-box {
-  margin-top: 50px;
+	margin-top: 50px;
 }
 
 .gift-cards {
-  max-width: 30%;
+	width: 30%;
 }
 
 .card-box {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.event-name {
+	margin-left: 0.5rem;
+}
+
+.event-item {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid gainsboro;
+}
+
+.event-item .event-link {
+	flex-grow: 99;
+	border: none;
+}
+
+.event-delete {
+	align-self: center;
+	/* margin: 0 10px; */
+}
+
+.delete-btn {
+	border: none;
+}
+
+.content { 
+	text-align: center;
+}
+
+.card-content .content .content-text {
+	margin-bottom: .3rem;
+}
+
+.card-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: .75rem;
 }

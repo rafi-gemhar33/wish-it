@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// import customFetch from "../customFetch";
-// import auth from "./auth";
+import customFetch from "../utils/customFetch";
+import auth from "../utils/auth";
 
 export default class LoginPage extends React.Component {
 	constructor() {
@@ -19,37 +19,36 @@ export default class LoginPage extends React.Component {
 		this.setState({ [ev.target.name]: ev.target.value });
 	};
 
-	// submitForm = () => {
-	// 	const { password, email } = this.state;
-	// 	if (password.length > 1 && email.length > 1) {
-	// 		const userData = {
-	// 			user: {
-	// 				email,
-	// 				password
-	// 			}
-	// 		};
+	submitForm = () => {
+		const { password, email } = this.state;
+		if (password.length > 0 && email.length > 0) {
+			const userData = {
+				user: {
+					email,
+					password
+				}
+			};
 
-	// 		customFetch(
-	// 			"https://conduit.productionready.io/api/users/login",
-	// 			userData
-	// 		)
-	// 			.then(userData => {
-	// 				if (!userData.errors) {
-	// 					localStorage.setItem("currentUser", userData.user.token);
-	// 					localStorage.setItem("userData", JSON.stringify(userData));
+			customFetch(
+				"http://localhost:3000/api/users/login",
+				JSON.stringify(userData)
+			)
+				.then(userData => {
+					if (userData.user && userData.user.token) {
+						localStorage.setItem("currentUser", userData.user.token);
 
-	// 					if (auth.isLogged()) {
-	// 						this.props.history.push("/");
-	// 					}
-	// 				} else {
-	// 					this.setState({ message: "email or password is invalid" });
-	// 				}
-	// 			})
-	// 			.catch(error => console.error(error));
-	// 	} else {
-	// 		this.setState({ message: "Email or password cannot be empty" });
-	// 	}
-	// };
+						if (auth.isLogged()) {
+							this.props.history.push("/");
+						}
+					} else {
+						this.setState({ message: userData.message });
+					}
+				})
+				.catch(error => console.error(error));
+		} else {
+			this.setState({ message: "Email or password cannot be empty" });
+		}
+	};
 
 	render() {
 		return (
@@ -66,7 +65,7 @@ export default class LoginPage extends React.Component {
 						<div className="control has-icons-left has-icons-right">
 							<input
 								name="email"
-								className="input is-large"
+								className="input is-medium"
 								type="email"
 								placeholder="Email"
 								onChange={this.handleInput}
@@ -81,7 +80,7 @@ export default class LoginPage extends React.Component {
 						<div className="control has-icons-left">
 							<input
 								name="password"
-								className="input is-large"
+								className="input is-medium"
 								type="password"
 								placeholder="Password"
 								onChange={this.handleInput}
@@ -96,7 +95,7 @@ export default class LoginPage extends React.Component {
 					<div className="field">
 						<p className="control">
 							<button
-								className="button is-info is-large"
+								className="button is-info is-medium"
 								onClick={this.submitForm}
 							>
 								Sign In

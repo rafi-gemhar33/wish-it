@@ -9,7 +9,6 @@ const Address = require('../../models/address');
 // Post /api/address/:slug
 router.post('/:event', auth.verifyToken, (req, res, next) => { 
     Event.findOne({slug: req.params.event}, (err, event) => {
-        console.log(event);
         
         if(err) return res.status(500).json(err);
         req.body.address.user = req.user;

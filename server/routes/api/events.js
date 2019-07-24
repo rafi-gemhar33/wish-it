@@ -57,6 +57,7 @@ router.get('/:event', (req, res) =>{
 
 router.post('/', auth.verifyToken, (req, res, next) =>{
     //Post one event
+    console.log("123123123")
           let event = req.body.event;
           event.user = req.user
           Event.create(event, (err, newEvent) => {
@@ -117,13 +118,16 @@ router.patch('/:event/gifts/:id',(req, res) => {
 
 
 router.post('/:event/gifts', auth.verifyToken, (req, res, next) => {
-    
     Event.findOne({slug: req.params.event}, (err, event) => {
         if(err) return res.status(500).json(err);
         req.body.gift.event = event;
         Gift.create(req.body.gift, (err, gift) => {
             if(err) return res.status(500).json(err);
-            event.gifts.push(gift)
+            console.log(gift.id);
+            
+            event.gifts.push(gift.id)
+
+            // console.log(event);
             event.save()
             .then(function(event){
                 event.user = req.user;
@@ -142,10 +146,16 @@ router.put('/:event/gifts/:id', auth.verifyToken,(req, res) => {
 
 })
 router.delete('/:event/gifts/:id', auth.verifyToken,(req, res) => {
-    Gift.findOneAndDelete(req.params.id, (err, gift) => {
-        if(err) return res.status(500).json(err);        
-        return res.json(gift);
+    Event.findOneAndUpdate({slug: req.params.event}, {$pull: {gifts: req.params.id}},
+        {safe: true, upsert: true}, (err, event) => {
+            console.log(event);
+            
+            Gift.findOneAndDelete(req.params.id, (err, gift) => {
+                if(err) return res.status(500).json(err);        
+                return res.json(gift);
+            })
     })
+
 })
 
 

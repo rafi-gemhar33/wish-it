@@ -8,16 +8,14 @@ const auth = require('../auth');
 const User = require('../../models/user')
 
 
-router.post('/user', (req, res, next) => {
+router.post('/user', (req, res, next) => {  
 	User.create(req.body.user, (err, user)=>{
 		if(err) return res.status(500).json(err);
 		res.status(201).json({user: user.toAuthJSON()});
     });
 });
 
-
 router.post('/login', function(req, res, next){
-  
   const {email, password} = req.body.user;
   if(!email){
     return res.status(422).json({errors: {email: "can't be blank"}});

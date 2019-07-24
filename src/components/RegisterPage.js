@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// import customFetch from "../customFetch";
-// import auth from "./auth";
+import customFetch from "../utils/customFetch";
+import auth from "../utils/auth";
 
 export default class RegisterPage extends React.Component {
 	constructor() {
@@ -20,34 +20,37 @@ export default class RegisterPage extends React.Component {
 		this.setState({ [ev.target.name]: ev.target.value });
 	};
 
-	// submitForm = () => {
-	// 	const { username, email, password } = this.state;
-	// 	if (username.length > 1 && password.length > 1 && email.length > 1) {
-	// 		const userData = {
-	// 			user: {
-	// 				username,
-	// 				email,
-	// 				password
-	// 			}
-	// 		};
-	// 		customFetch("https://conduit.productionready.io/api/users", userData)
-	// 			.then(userData => {
-	// 				if (!userData.errors) {
-	// 					localStorage.setItem("currentUser", userData.user.token);
-	// 					localStorage.setItem("userData", JSON.stringify(userData));
+	submitForm = () => {
+		const { username, email, password } = this.state;
+		if (username.length > 1 && password.length > 1 && email.length > 1) {
+			const userData = {
+				user: {
+					username,
+					email,
+					password
+				}
+			};
 
-	// 					if (auth.isLogged()) {
-	// 						this.props.history.push("/");
-	// 					}
-	// 				} else {
-	// 					this.setState({ message: "email or password is invalid" });
-	// 				}
-	// 			})
-	// 			.catch(error => console.error(error));
-	// 	} else {
-	// 		this.setState({ message: "No fields can be empty" });
-	// 	}
-	// };
+			customFetch(
+				"http://localhost:3000/api/users/user",
+				JSON.stringify(userData)
+			)
+				.then(userData => {
+					if (userData.user && userData.user.token) {
+						localStorage.setItem("currentUser", userData.user.token);
+
+						if (auth.isLogged()) {
+							this.props.history.push("/");
+						}
+					} else {
+						this.setState({ message: userData.message });
+					}
+				})
+				.catch(error => console.error(error));
+		} else {
+			this.setState({ message: "Email or password cannot be empty" });
+		}
+	};
 
 	render() {
 		return (
@@ -64,7 +67,7 @@ export default class RegisterPage extends React.Component {
 						<div className="control has-icons-left has-icons-right">
 							<input
 								name="username"
-								className="input is-large"
+								className="input is-medium"
 								type="text"
 								placeholder="Username"
 								onChange={this.handleInput}
@@ -79,7 +82,7 @@ export default class RegisterPage extends React.Component {
 						<div className="control has-icons-left has-icons-right">
 							<input
 								name="email"
-								className="input is-large"
+								className="input is-medium"
 								type="email"
 								placeholder="Email"
 								onChange={this.handleInput}
@@ -94,7 +97,7 @@ export default class RegisterPage extends React.Component {
 						<div className="control has-icons-left">
 							<input
 								name="password"
-								className="input is-large"
+								className="input is-medium"
 								type="password"
 								placeholder="Password"
 								onChange={this.handleInput}
@@ -109,7 +112,7 @@ export default class RegisterPage extends React.Component {
 					<div className="field">
 						<div className="control">
 							<button
-								className="button is-info is-large "
+								className="button is-info is-medium "
 								type="submit"
 								onClick={this.submitForm}
 							>

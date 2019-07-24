@@ -6,15 +6,18 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongStore = require('connect-mongo')(session);
+const cors = require('cors');
 
 const apiRouter = require('./routes/api');
 
 const app = express();
 
+// app.use(cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+mode: "no-cors",
 //Mongo DB connect
 mongoose.connect('mongodb://localhost/server', {useNewUrlParser: true}, err => {
   console.log(err ? err : `DB connected... port: 3300`);

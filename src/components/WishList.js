@@ -1,87 +1,177 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
+
+import Gift from "./Gift";
+import customFetch from "../utils/customFetch";
+import auth from "../utils/auth";
+import ConsentModal from "./ConsentModal";
 
 export default class WishList extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-            giftList:[]
+			event: [],
+			giftList: [],
+			isModal: false,
+			modalGift:{}
 		};
-    }
+	}
 
-    render() {
-        return(
-           <React.Fragment>
-                <div className="columns is-mobile">
-                    <div className="column is-one-third is-offset-one-third">
-                    <div className="search-box field is-grouped">
-                        <p className="control is-expanded has-icons-left">
-                        <input className="input is-large" type="text" placeholder="Search a product from Amazon" />
-                        <span className="icon is-small is-left">
-                            <i className="fas fa-search" aria-hidden="true"></i>
-                        </span>
-                        </p>
-                        <p className="control">
-                        <a className="button is-info is-large">
-                            Search
-                        </a>
-                        </p>
-                    </div>
-                    <div className="box create-btn">
-                        <h1 class="subtitle is-3">Add New Gift</h1>
-                            <Link class="button is-primary is-large" to="/gift">
-                                <span class="icon">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span>New Gift</span>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-                <div className="columns is-mobile">
+	componentDidMount() {
+		this.populateGifts();
+	}
 
-                <div className="card-box column is-three-fifths is-offset-one-fifth">
+	populateGifts = () => {
+		const { slug } = this.props.location.state;
+		customFetch(
+			`http://localhost:3000/api/events/${slug}/gifts`,
+			null,
+			auth.getToken(),
+			"GET"
+		)
+			.then(data => {
+				// console.log(data);
 
+				this.setState({ giftList: data.gifts || [], event: data || {} });
+			})
+			.catch(err => console.log(err));
+	};
 
-                        {
-                            this.state.giftList.map(gift => {
-                                return(
-                                    <div class="card gift-cards">
-                                        <div class="card-image">
-                                            <figure class="image is-square">
-                                            <img src="https://bulma.io/images/placeholders/256x256.png" alt="Placeholder image" />
-                                            </figure>
-                                        </div>
-                                        <div class="card-content">
-                                            <div class="media">
-                                                <div class="media-left">
+	addGift = giftData => {
+		const { name, itemURL, price, image } = giftData;
+		let dataInFormat = {
+			gift: {
+				name,
+				itemURL,
+				price,
+				image
+			}
+		};
 
-                                                </div>
-                                                <div class="media-content">
-                                                    <p class="title is-4">John Smith</p>
-                                                    <p class="subtitle is-6">@johnsmith</p>
-                                                </div>
-                                            </div>
+		const { slug } = this.props.location.state;
+		customFetch(
+			`http://localhost:3000/api/events/${slug}/gifts`,
+			JSON.stringify(dataInFormat),
+			auth.getToken()
+		).then(data => {
+			this.populateGifts();
+		});
+	};
 
-                                            <div class="content">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                                            <a href="#">#css</a> <a href="#">#responsive</a>
-                                            <br />
-                                            <button className="button is-success">Gift this</button>
+	deleteGift = id => {
+		const { slug } = this.props.location.state;
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
+		customFetch(
+			`http://localhost:3000/api/events/${slug}/gifts/${id}`,
+			null,
+			auth.getToken(),
+			"DELETE"
+		).then(data => {
+			this.populateGifts();
+		});
+	};
 
 
-                    </div>
-                </div>
-           </React.Fragment> 
-        )
-    }
-    
+	toggleModal = (gift={}) => {
+		this.setState({ isModal: !this.state.isModal, modalGift:gift });
+	};
+
+	buyGift = (id, buyeeName) => {
+		console.log(id, buyeeName);
+		const { slug } = this.props.location.state;
+		let dataInFormat = {
+			gift: {
+				giftedBy: buyeeName,
+				isGifted: true
+			}
+		};
+
+		customFetch(
+			`http://localhost:3000/api/events/${slug}/gifts/${id}`,
+			JSON.stringify(dataInFormat),
+			auth.getToken(),
+			"PUT"
+		).then(data => {
+			console.log(data)
+			this.populateGifts();
+		});
+
+	}
+
+	render() {
+		return (
+			<React.Fragment>
+				<ConsentModal buyGift={this.buyGift} gift={this.state.modalGift} isModal={this.state.isModal} handleModal={this.toggleModal} />
+				<div className="columns is-mobile">
+					<div className="column is-6 is-offset-3">
+						<div className="search-box field is-grouped">
+							<p className="control is-expanded has-icons-left">
+								<input
+									className="input is-medium"
+									type="text"
+									placeholder="Search a product from Amazon"
+								/>
+								<span className="icon is-small is-left">
+									<i className="fas fa-search" aria-hidden="true" />
+								</span>
+							</p>
+							<p className="control">
+								<a className="button is-info is-medium">Search</a>
+							</p>
+						</div>
+						<div className="box create-btn">
+							<Gift addGift={this.addGift} />
+						</div>
+					</div>
+				</div>
+				<div className="columns is-mobile">
+					<div className="card-box column is-three-fifths is-offset-one-fifth">
+						{this.state.giftList.map((gift, i) => {
+							return (
+								<div className="card gift-cards" key={i}>
+									<div className="card-image">
+										<figure className="image is-square">
+											<img
+												src={
+													gift.image ||
+													"https://bulma.io/images/placeholders/256x256.png"
+												}
+												alt="Placeholder image"
+											/>
+										</figure>
+									</div>
+									<div className="card-content">
+										<div className="content">
+											<p className="content-text">{gift.name}</p>
+											<p className="content-text">{gift.price}</p>
+											<a target="_blank" href={gift.itemURL}>Shopt it Online</a>
+
+											<br />
+											<div className="card-buttons">
+												<button
+													disabled = {gift.isGifted}
+													className="button is-success"
+													onClick={() => this.toggleModal(gift)}
+												>
+													{gift.isGifted?`Gifted by ${gift.giftedBy}` :"Gift this"}
+												</button>
+
+												<button
+													className="button"
+													disabled = {gift.isGifted}
+													onClick={() => this.deleteGift(gift._id)}
+												>
+													<i className="fas fa-trash-alt" />
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							);
+						})}
+					</div>
+				</div>
+			</React.Fragment>
+		);
+	}
 }

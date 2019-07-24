@@ -12,7 +12,7 @@ const giftSchema = new Schema({
 }, {timestamps: true});
 
 
-giftSchema.methods.toJSONFor = function(user){
+giftSchema.methods.toJSONFor = function(){
     return {
       id: this._id,
       name: this.name,
