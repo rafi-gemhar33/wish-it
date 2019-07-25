@@ -40,15 +40,19 @@ class Header extends React.Component {
 
 							<div id="navbarExampleTransparentExample" className="navbar-menu">
 								<div className="navbar-start">
+								{auth.isLogged() ? 
 									<Link className="navbar-item" to="/editUser">
 										Edit Profile
 									</Link>
+
+									: 
+									<></>}
 
 									{/* <Link className="button is-warning " to="/">
 													<span>Home</span>
 												</Link> */}
 
-									<Link className="navbar-item" to="/address">
+									{/* <Link className="navbar-item" to="/address">
 										Add Address
 									</Link>
 
@@ -62,7 +66,7 @@ class Header extends React.Component {
 											<hr className="navbar-divider" />
 											<a className="navbar-item">Report an issue</a>
 										</div>
-									</div>
+									</div> */}
 								</div>
 
 								<div className="navbar-end">

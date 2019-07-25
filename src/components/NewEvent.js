@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 
 import customFetch from "../utils/customFetch";
 import auth from "../utils/auth";
+import Address from "./Address"
 
 export default class NewEvent extends React.Component {
 	constructor(props) {
@@ -20,7 +21,7 @@ export default class NewEvent extends React.Component {
 		this.setState({ [ev.target.name]: ev.target.value });
 	};
 
-	submitForm = () => {
+	submitForm = (address) => {
 		const { occasion, eventName, date, message } = this.state;
 
 		if (occasion.length > 0 && eventName.length > 0 && date.length > 0) {
@@ -29,9 +30,9 @@ export default class NewEvent extends React.Component {
 					occasion,
 					eventName,
 					date
-				}
+				},
+				eventAddress: address
 			};
-
 			customFetch(
 				"http://localhost:3000/api/events",
 				JSON.stringify(eventData),
@@ -105,9 +106,11 @@ export default class NewEvent extends React.Component {
 							<p className="help is-danger">{this.state.message}</p>
 						</div>
 					</div>
-					<div className="field">
-						<div className="control">
-							<button
+
+					<Address submitForm={this.submitForm}/>
+					{/* <div className="field">
+						<div className="control"> */}
+							{/* <button
 								className="button is-info is-medium "
 								type="submit"
 								onClick={this.submitForm}
@@ -116,9 +119,9 @@ export default class NewEvent extends React.Component {
 									<i className="fas fa-plus" />
 								</span>
 								<span>New Event</span>
-							</button>
-						</div>
-					</div>
+							</button> */}
+						{/* </div>
+					</div> */}
 				</div>
 			</div>
 		);

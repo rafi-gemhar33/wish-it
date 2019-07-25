@@ -8,7 +8,7 @@ export default class Gift extends React.Component {
 			name: "test",
 			itemURL: "https://www.amazon.in/Morphy-Richards-Fresco-800-Watt-Espresso/dp/B00A2286B6/ref=sr_1_4?keywords=espresso+machine&qid=1563944243&s=gateway&sr=8-4",
 			price: "111",
-			image: "http://images.pexels.com/photos/1178562/pexels-photo-1178562.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350&w=350",
+			image: "https://images.unsplash.com/photo-1545844568-98bb15133ec0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
 			message: ""
 		};
 	}

@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 mode: "no-cors",
 //Mongo DB connect
 mongoose.connect('mongodb://localhost/server', {useNewUrlParser: true}, err => {
-  console.log(err ? err : `DB connected... port: 3300`);
+  console.log(err ? err : `DB connected... port: 3500`);
 })
 
 

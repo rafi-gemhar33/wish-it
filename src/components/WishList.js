@@ -13,7 +13,7 @@ export default class WishList extends React.Component {
 			event: [],
 			giftList: [],
 			isModal: false,
-			modalGift:{}
+			modalGift: {}
 		};
 	}
 
@@ -59,21 +59,22 @@ export default class WishList extends React.Component {
 	};
 
 	deleteGift = id => {
-		const { slug } = this.props.location.state;
+		if (window.confirm("Are you sure to delete")) {
+			const { slug } = this.props.location.state;
 
-		customFetch(
-			`http://localhost:3000/api/events/${slug}/gifts/${id}`,
-			null,
-			auth.getToken(),
-			"DELETE"
-		).then(data => {
-			this.populateGifts();
-		});
+			customFetch(
+				`http://localhost:3000/api/events/${slug}/gifts/${id}`,
+				null,
+				auth.getToken(),
+				"DELETE"
+			).then(data => {
+				this.populateGifts();
+			});
+		}
 	};
 
-
-	toggleModal = (gift={}) => {
-		this.setState({ isModal: !this.state.isModal, modalGift:gift });
+	toggleModal = (gift = {}) => {
+		this.setState({ isModal: !this.state.isModal, modalGift: gift });
 	};
 
 	buyGift = (id, buyeeName) => {
@@ -92,16 +93,20 @@ export default class WishList extends React.Component {
 			auth.getToken(),
 			"PUT"
 		).then(data => {
-			console.log(data)
+			console.log(data);
 			this.populateGifts();
 		});
-
-	}
+	};
 
 	render() {
 		return (
 			<React.Fragment>
-				<ConsentModal buyGift={this.buyGift} gift={this.state.modalGift} isModal={this.state.isModal} handleModal={this.toggleModal} />
+				<ConsentModal
+					buyGift={this.buyGift}
+					gift={this.state.modalGift}
+					isModal={this.state.isModal}
+					handleModal={this.toggleModal}
+				/>
 				<div className="columns is-mobile">
 					<div className="column is-6 is-offset-3">
 						<div className="search-box field is-grouped">
@@ -116,16 +121,20 @@ export default class WishList extends React.Component {
 								</span>
 							</p>
 							<p className="control">
-								<a className="button is-info is-medium">Search</a>
+								<button className="button is-info is-medium">Search</button>
 							</p>
 						</div>
-						<div className="box create-btn">
-							<Gift addGift={this.addGift} />
-						</div>
+						{auth.isLogged() ? (
+							<div className="box create-btn">
+								<Gift addGift={this.addGift} />
+							</div>
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
 				<div className="columns is-mobile">
-					<div className="card-box column is-three-fifths is-offset-one-fifth">
+					<div className=" box card-box column is-three-fifths is-offset-one-fifth">
 						{this.state.giftList.map((gift, i) => {
 							return (
 								<div className="card gift-cards" key={i}>
@@ -144,25 +153,33 @@ export default class WishList extends React.Component {
 										<div className="content">
 											<p className="content-text">{gift.name}</p>
 											<p className="content-text">{gift.price}</p>
-											<a target="_blank" href={gift.itemURL}>Shopt it Online</a>
+											<a target="_blank" href={gift.itemURL}>
+												Shopt it Online
+											</a>
 
 											<br />
 											<div className="card-buttons">
 												<button
-													disabled = {gift.isGifted}
+													disabled={gift.isGifted}
 													className="button is-success"
 													onClick={() => this.toggleModal(gift)}
 												>
-													{gift.isGifted?`Gifted by ${gift.giftedBy}` :"Gift this"}
+													{gift.isGifted
+														? `Gifted by ${gift.giftedBy}`
+														: "Gift this"}
 												</button>
 
-												<button
-													className="button"
-													disabled = {gift.isGifted}
-													onClick={() => this.deleteGift(gift._id)}
-												>
-													<i className="fas fa-trash-alt" />
-												</button>
+												{auth.isLogged() ? (
+													<button
+														className="button"
+														disabled={gift.isGifted}
+														onClick={() => this.deleteGift(gift._id)}
+													>
+														<i className="fas fa-trash-alt" />
+													</button>
+												) : (
+													<></>
+												)}
 											</div>
 										</div>
 									</div>

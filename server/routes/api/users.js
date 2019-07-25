@@ -39,7 +39,7 @@ router.post('/login', function(req, res, next){
 router.get('/user', auth.verifyToken, function(req, res, next){
   User.findById(req.user.id, (err, user) => {
     if(err) return res.status(500).json(err);
-    return res.json({user: user.toAuthJSON()});
+    return res.json({user: user.toUserJSON()});
   })
 });
 

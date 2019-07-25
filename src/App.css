@@ -10,6 +10,22 @@
 	text-align: center;
 	margin-bottom: 15px;
 }
+.address-header {
+	text-align: left;
+	margin: 10px 0;
+}
+
+.address-row{
+	display: flex;
+	justify-content: flex-start;
+}
+.address-row .field {
+	width: 49%;
+}
+
+.address-box .address-row div:first-of-type {
+	margin-right: 3%;
+}
 
 .sign-header .green-text {
 	color: cornflowerblue;
@@ -25,6 +41,7 @@
 
 .gift-cards {
 	width: 30%;
+	margin-bottom: 30px;
 }
 
 .card-box {

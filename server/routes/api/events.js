@@ -6,6 +6,7 @@ const auth = require('../auth');
 const User = require('../../models/user');
 const Event = require('../../models/event');
 const Gift = require('../../models/gift');
+const Address = require('../../models/address');
 // const giftsRouter = require('./gifts');
 
 // router.use('/:article/gifts', giftsRouter);
@@ -19,7 +20,7 @@ router.get('/', (req, res) =>{
         if(eventList){
             return res.status(200).json({eventList});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Email or password do not match'});
         }
 		
     })
@@ -34,7 +35,7 @@ router.get('/user', auth.verifyToken, (req, res, next) =>{
         if(eventList){
             return res.status(200).json({eventList});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Cannot find user'});
         }
     })
 
@@ -42,14 +43,14 @@ router.get('/user', auth.verifyToken, (req, res, next) =>{
 
 router.get('/:event', (req, res) =>{
     //Only one event
-    Event.findOne({slug: req.params.event})
+    Event.findOne({eventName: req.params.event})
     .populate('user', '-password')
     .exec((err, event) => {
         if(err) return res.status(500).json(err);
         if(event){
             return res.status(200).json({event});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Cannot find event name'});
         }
 		
     })
@@ -57,13 +58,19 @@ router.get('/:event', (req, res) =>{
 
 router.post('/', auth.verifyToken, (req, res, next) =>{
     //Post one event
-    console.log("123123123")
-          let event = req.body.event;
-          event.user = req.user
-          Event.create(event, (err, newEvent) => {
-            if(err) return res.status(500).json(err);
-            return res.json({event: newEvent.toJSONFor()});
-          })
+    console.log("bubba luba dud dub");
+    
+    Address.create(req.body.eventAddress.address, (err, address) => {
+        if(err) return res.status(500).json(err);        
+        let event = req.body.event;
+        event.user = req.user;
+        event.address = address;
+        Event.create(event, (err, newEvent) => {
+          if(err) return res.status(500).json(err);
+          return res.json({event: newEvent.toJSONFor()});
+        })
+    })
+
 });
 
 router.put('/:event', auth.verifyToken, (req, res) =>{
@@ -75,7 +82,7 @@ router.put('/:event', auth.verifyToken, (req, res) =>{
         if(event){
             return res.status(200).json({event});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Event Slugger is a messy one to update'});
         }
 		
     })
@@ -90,7 +97,7 @@ router.delete('/:event', auth.verifyToken, (req, res) =>{
         if(event){
             return res.status(200).json({event});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Event Slugger is a messy one to Delete'});
         }
 		
     })
@@ -104,7 +111,7 @@ router.get('/:event/gifts', (req, res) => {
         if(event){
             return res.status(200).json({gifts: event.gifts});
         } else {
-            return res.status(401).json({error: 'Slugger is a slugger bobs'});
+            return res.status(401).json({error: 'Event Slugger is a messy one to get gifts'});
         }
 		
     })
@@ -138,7 +145,7 @@ router.post('/:event/gifts', auth.verifyToken, (req, res, next) => {
     })
     
 })
-router.put('/:event/gifts/:id', auth.verifyToken,(req, res) => {
+router.put('/:event/gifts/:id',(req, res) => {
     Gift.findByIdAndUpdate(req.params.id, req.body.gift, { new: true }, (err, gift) => {
         if(err) return res.status(500).json(err);        
         return res.json(gift);

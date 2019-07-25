@@ -14,7 +14,6 @@ export default class Dashboard extends React.Component {
 	}
 
 	componentDidMount() {
-		// fetch('http://localhost:3300/api/events/user')
 		this.populateEvents();
 	}
 
@@ -38,21 +37,23 @@ export default class Dashboard extends React.Component {
 	};
 
 	deleteEvent = slug => {
-		customFetch(
-			`http://localhost:3000/api/events/${slug}`,
-			null,
-			auth.getToken(),
-			"DELETE"
-		).then(data => {
-			console.log(data);
-			this.populateEvents();
-		});
+		if (window.confirm("Are you sure to delete")) {
+			customFetch(
+				`http://localhost:3000/api/events/${slug}`,
+				null,
+				auth.getToken(),
+				"DELETE"
+			).then(data => {
+				console.log(data);
+				this.populateEvents();
+			});
+		}
 	};
 
 	render() {
 		return (
 			<React.Fragment>
-				<div className="column is-8 is-offset-2">
+				<div className="column is-10 is-offset-1">
 					<div className="base column is-three-fifths is-offset-one-fifth">
 						<div className="box create-btn">
 							<NewEvent addEvent={this.addEvent} />
