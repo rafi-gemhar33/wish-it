@@ -67,7 +67,12 @@ router.post('/', auth.verifyToken, (req, res, next) =>{
         event.address = address;
         Event.create(event, (err, newEvent) => {
           if(err) return res.status(500).json(err);
-          return res.json({event: newEvent.toJSONFor()});
+          if(newEvent){
+              return res.json({event: newEvent.toJSONFor()});
+          } else {
+            return res.json({event: 'Event name is not available'});
+          }
+
         })
     })
 

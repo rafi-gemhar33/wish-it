@@ -11,7 +11,7 @@ export default class Address extends React.Component {
 			line1: "xxx",
 			line2: "xxx",
 			city: "xxx",
-			state: "xxx",
+			state: "xxx"
 		};
 	}
 
@@ -21,8 +21,8 @@ export default class Address extends React.Component {
 	};
 
 	submitForm = () => {
-		this.props.submitForm({address: this.state})
-	}
+		this.props.submitForm({ address: this.state });
+	};
 
 	render() {
 		const { name, phone, pin, line1, line2, city, state } = this.state;
@@ -35,7 +35,7 @@ export default class Address extends React.Component {
 						</div>
 						<div className="address-row">
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="name"
 										className="input  is-medium"
@@ -44,11 +44,14 @@ export default class Address extends React.Component {
 										value={name}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i className="fas fa-user" />
+									</span>
 								</div>
 							</div>
 
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="phone"
 										className="input  is-medium"
@@ -57,13 +60,16 @@ export default class Address extends React.Component {
 										value={phone}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i class="fas fa-phone-alt" />
+									</span>
 								</div>
 							</div>
 						</div>
 
 						<div className=" address-row">
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="line1"
 										className="input  is-medium"
@@ -72,11 +78,14 @@ export default class Address extends React.Component {
 										value={line1}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i className="fas fa-home" />
+									</span>
 								</div>
 							</div>
 
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="line2"
 										className="input  is-medium"
@@ -85,14 +94,16 @@ export default class Address extends React.Component {
 										value={line2}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i className="fas fa-building" />
+									</span>
 								</div>
 							</div>
 						</div>
 
-
 						<div className=" address-row">
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="city"
 										className="input  is-medium"
@@ -101,10 +112,13 @@ export default class Address extends React.Component {
 										value={city}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i className="fas fa-city" />
+									</span>
 								</div>
 							</div>
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="state"
 										className="input  is-medium"
@@ -113,13 +127,16 @@ export default class Address extends React.Component {
 										value={state}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i class="fas fa-globe-asia"></i>
+									</span>
 								</div>
 							</div>
 						</div>
 
 						<div className="field address-row">
 							<div className="field">
-								<div className="control">
+								<div className="control has-icons-left">
 									<input
 										name="pin"
 										className="input  is-medium"
@@ -128,12 +145,15 @@ export default class Address extends React.Component {
 										value={pin}
 										onChange={this.handleInput}
 									/>
+									<span className="icon is-small is-left">
+										<i className="fas fa-map-pin" />
+									</span>
 								</div>
 							</div>
 						</div>
 
 						<div className="field is-grouped">
-							<div className="control">
+							<div className="control ">
 								{/* <p className="help is-danger">{message}</p> */}
 								<button
 									className="button is-info is-medium"

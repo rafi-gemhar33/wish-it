@@ -11,7 +11,8 @@ class HomePage extends React.Component {
 			searchEvent: "",
 			message: "",
 			redirect: false,
-			slug: ""
+			slug: "",
+			event: {}
 		};
 	}
 
@@ -23,20 +24,23 @@ class HomePage extends React.Component {
 	search = () => {
 		const { searchEvent } = this.state;
 
-		fetch(`http://localhost:3000/api/events/${searchEvent}`)
-			.then(res => {
-				console.log(res);
-				
-				return res.json()
-			})
-			.then(data => {
-				if (!data.error) {
-					this.setState({ redirect: true, slug: data.event.slug });
-				} else {
-					this.setState({ message: data.error });
-				}
-			})
-			.catch(err => console.log(err));
+		if(searchEvent.length > 0){
+			fetch(`http://localhost:3000/api/events/${searchEvent}`)
+				.then(res => {				
+					return res.json()
+				})
+				.then(data => {
+					if (!data.error) {
+						this.setState({ redirect: true, slug: data.event.slug, event:data.event });
+					} else {
+						this.setState({ message: data.error });
+					}
+				})
+				.catch(err => console.log(err));
+		} else {
+			this.setState({ message: "Why the hell are you searching for an empty event" });
+		}
+
 	};
 
 	renderRedirect = () => {
@@ -46,7 +50,8 @@ class HomePage extends React.Component {
 					to={{
 						pathname: "/wishList",
 						state: {
-							slug: this.state.slug
+							slug: this.state.slug,
+							event: this.state.event
 						}
 					}}
 				/>
@@ -82,7 +87,9 @@ class HomePage extends React.Component {
 									Search
 								</button>
 							</p>
+							
 						</div>
+						<p className="help is-danger">{this.state.message}</p>
 					</div>
 				</div>
 				{auth.isLogged() ? <Dashboard /> : <></>}

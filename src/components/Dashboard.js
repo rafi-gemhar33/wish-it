@@ -69,7 +69,8 @@ export default class Dashboard extends React.Component {
 											to={{
 												pathname: "/wishList",
 												state: {
-													slug: slug
+													slug: slug,
+													event: event
 												}
 											}}
 										>

@@ -9,14 +9,13 @@ import WishList from "./components/WishList";
 import NewEvent from "./components/NewEvent";
 import Address from "./components/Address";
 import auth from "./utils/auth";
-import { UserContext } from './utils/UserContext'
+import { UserContext } from "./utils/UserContext";
 import customFetch from "./utils/customFetch";
 
 import "bulma/css/bulma.css";
 import "./App.css";
 class App extends React.Component {
-
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.fetchUser = () => {
 			customFetch(
@@ -25,28 +24,27 @@ class App extends React.Component {
 				auth.getToken(),
 				"GET"
 			).then(data => {
-				if(data.user) {
-					this.setState({loggedUser: data.user});
+				if (data.user) {
+					this.setState({ loggedUser: data.user });
 				} else {
-					this.setState({loggedUser: {}});
+					this.setState({ loggedUser: {} });
 				}
 			});
-		}
+		};
 		this.state = {
 			loggedUser: {},
-			fetchUser: this.fetchUser,
-		}
+			fetchUser: this.fetchUser
+		};
 	}
 
-	componentDidMount(){
-		this.fetchUser()
+	componentDidMount() {
+		this.fetchUser();
 	}
-	render() {	
+	render() {
 		return (
 			<UserContext.Provider value={this.state}>
-
 				<div className="App">
-					<Header />
+					<Header loggedUser={this.state.loggedUser} />
 					{/* <Route path="/" component={Header} /> */}
 					<Switch>
 						<Route path="/" exact component={HomePage} />
@@ -54,7 +52,12 @@ class App extends React.Component {
 						<Route path="/register" component={RegisterPage} />
 						<Route path="/event" component={NewEvent} />
 						<Route path="/address" component={Address} />
-						<Route path="/editUser" render ={props => <EditUser {...props} loggedUser={this.state.loggedUser} /> } />
+						<Route
+							path="/editUser"
+							render={props => (
+								<EditUser {...props} loggedUser={this.state.loggedUser} />
+							)}
+						/>
 						<Route path="/wishList" component={WishList} />
 					</Switch>
 				</div>

@@ -30,7 +30,7 @@ export default class Gift extends React.Component {
 
 	render() {
 		return (
-			<div className="column is-8 is-offset-2">
+			<div className="">
 				{/* <div className="base column is-three-fifths is-offset-one-fifth"> */}
 				<div className="sign-header">
 					<h1 className="subtitle is-2 ">Add New Gift</h1>

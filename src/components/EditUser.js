@@ -19,6 +19,7 @@ export default class EditUser extends React.Component {
 			message: ""
 		};
 	}
+
 	componentDidMount() {
 
 		customFetch(
@@ -33,6 +34,7 @@ export default class EditUser extends React.Component {
 			}
 		});
 	}
+
 	handleInput = ev => {
 		this.setState({ message: "" });
 		this.setState({ [ev.target.name]: ev.target.value });
@@ -165,7 +167,7 @@ export default class EditUser extends React.Component {
 											className="button is-info "
 											onClick={() => this.updateProfile(fetchUser, loggedUser)}
 										>
-											Update Settings
+											Update Profile
 										</button>
 									</div>
 								</div>

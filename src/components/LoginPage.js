@@ -41,7 +41,7 @@ export default class LoginPage extends React.Component {
 							this.props.history.push("/");
 						}
 					} else {
-						this.setState({ message: userData.message });
+						this.setState({ message: "email or password is invalid" });
 					}
 				})
 				.catch(error => console.error(error));

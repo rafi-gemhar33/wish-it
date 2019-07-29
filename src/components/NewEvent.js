@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 
 import customFetch from "../utils/customFetch";
 import auth from "../utils/auth";
-import Address from "./Address"
+import Address from "./Address";
 
 export default class NewEvent extends React.Component {
 	constructor(props) {
@@ -21,7 +21,7 @@ export default class NewEvent extends React.Component {
 		this.setState({ [ev.target.name]: ev.target.value });
 	};
 
-	submitForm = (address) => {
+	submitForm = address => {
 		const { occasion, eventName, date, message } = this.state;
 
 		if (occasion.length > 0 && eventName.length > 0 && date.length > 0) {
@@ -39,11 +39,10 @@ export default class NewEvent extends React.Component {
 				auth.getToken()
 			)
 				.then(data => {
-					if (data) {
-						// console.log(data);
-						this.props.addEvent(data);						
+					if (!data.errors) {
+						this.props.addEvent(data);
 					} else {
-						this.setState({ message: data.message });
+						this.setState({ message: "Eventname is already taken. It should be unique" });
 					}
 				})
 				.catch(error => console.error(error));
@@ -60,7 +59,7 @@ export default class NewEvent extends React.Component {
 						<h1 className="subtitle is-2">Add New Event</h1>
 					</div>
 
-					<div className="field">
+					{/* <div className="field">
 						<div className="control has-icons-left has-icons-right">
 							<input
 								name="occasion"
@@ -73,6 +72,23 @@ export default class NewEvent extends React.Component {
 							<span className="icon is-small is-left">
 								<i className="fas fa-gifts" />
 							</span>
+						</div>
+					</div> */}
+					<div className="field">
+						<div class="control has-icons-left has-icons-right">
+							<div class="select is-medium">
+								<span className="icon is-small is-left">
+									<i className="fas fa-gifts" />
+								</span>
+								<select name="occasion" onChange={this.handleInput} value={this.state.occasion}>
+								
+									<option selected="selected" >Wedding</option>
+									<option>Birthday</option>
+									
+									<option>Anniversary</option>
+									<option>Others</option>
+								</select>
+							</div>
 						</div>
 					</div>
 					<div className="field">
@@ -107,10 +123,10 @@ export default class NewEvent extends React.Component {
 						</div>
 					</div>
 
-					<Address submitForm={this.submitForm}/>
+					<Address submitForm={this.submitForm} />
 					{/* <div className="field">
 						<div className="control"> */}
-							{/* <button
+					{/* <button
 								className="button is-info is-medium "
 								type="submit"
 								onClick={this.submitForm}
@@ -120,7 +136,7 @@ export default class NewEvent extends React.Component {
 								</span>
 								<span>New Event</span>
 							</button> */}
-						{/* </div>
+					{/* </div>
 					</div> */}
 				</div>
 			</div>

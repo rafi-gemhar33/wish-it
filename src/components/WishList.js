@@ -99,6 +99,8 @@ export default class WishList extends React.Component {
 	};
 
 	render() {
+		
+		const {eventName} = this.props.location.state.event;
 		return (
 			<React.Fragment>
 				<ConsentModal
@@ -109,7 +111,10 @@ export default class WishList extends React.Component {
 				/>
 				<div className="columns is-mobile">
 					<div className="column is-6 is-offset-3">
-						<div className="search-box field is-grouped">
+
+						{auth.isLogged() ? (
+							<div className="box create-btn">
+							<div className="search-box field is-grouped">
 							<p className="control is-expanded has-icons-left">
 								<input
 									className="input is-medium"
@@ -124,8 +129,6 @@ export default class WishList extends React.Component {
 								<button className="button is-info is-medium">Search</button>
 							</p>
 						</div>
-						{auth.isLogged() ? (
-							<div className="box create-btn">
 								<Gift addGift={this.addGift} />
 							</div>
 						) : (
@@ -134,58 +137,67 @@ export default class WishList extends React.Component {
 					</div>
 				</div>
 				<div className="columns is-mobile">
-					<div className=" box card-box column is-three-fifths is-offset-one-fifth">
-						{this.state.giftList.map((gift, i) => {
-							return (
-								<div className="card gift-cards" key={i}>
-									<div className="card-image">
-										<figure className="image is-square">
-											<img
-												src={
-													gift.image ||
-													"https://bulma.io/images/placeholders/256x256.png"
-												}
-												alt="Placeholder image"
-											/>
-										</figure>
-									</div>
-									<div className="card-content">
-										<div className="content">
-											<p className="content-text">{gift.name}</p>
-											<p className="content-text">{gift.price}</p>
-											<a target="_blank" href={gift.itemURL}>
-												Shopt it Online
-											</a>
+					<div className="box column is-6 is-offset-3">
+						<div className="wishlist-header">
+							<h1 className="subtitle is-2 ">{eventName + " Wish List"}</h1>
+						</div>
+						<div className="card-box">
+							{this.state.giftList.length > 0 ? 
+								this.state.giftList.map((gift, i) => {
+								return (
+									<div className="card gift-cards" key={i}>
+										<div className="card-image">
+											<figure className="image is-square">
+												<img
+													src={
+														gift.image ||
+														"https://bulma.io/images/placeholders/256x256.png"
+													}
+													alt="Placeholder image"
+												/>
+											</figure>
+										</div>
+										<div className="card-content">
+											<div className="content">
+												<p className="content-text">{gift.name}</p>
+												<p className="content-text">{gift.price}</p>
+												<a target="_blank" href={gift.itemURL}>
+													Shopt it Online
+												</a>
 
-											<br />
-											<div className="card-buttons">
-												<button
-													disabled={gift.isGifted}
-													className="button is-success"
-													onClick={() => this.toggleModal(gift)}
-												>
-													{gift.isGifted
-														? `Gifted by ${gift.giftedBy}`
-														: "Gift this"}
-												</button>
-
-												{auth.isLogged() ? (
+												<br />
+												<div className="card-buttons">
 													<button
-														className="button"
 														disabled={gift.isGifted}
-														onClick={() => this.deleteGift(gift._id)}
+														className="button is-success"
+														onClick={() => this.toggleModal(gift)}
 													>
-														<i className="fas fa-trash-alt" />
+														{gift.isGifted
+															? `Gifted by ${gift.giftedBy}`
+															: "Gift this"}
 													</button>
-												) : (
-													<></>
-												)}
+
+													{auth.isLogged() ? (
+														<button
+															className="button"
+															disabled={gift.isGifted}
+															onClick={() => this.deleteGift(gift._id)}
+														>
+															<i className="fas fa-trash-alt" />
+														</button>
+													) : (
+														<></>
+													)}
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							);
-						})}
+								);
+							})
+							:
+							<p className="help is-danger">No Gifts are added to the Wish List</p>
+							}
+						</div>
 					</div>
 				</div>
 			</React.Fragment>

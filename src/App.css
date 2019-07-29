@@ -1,9 +1,18 @@
-.title .logo {
+.title .logo, .title .logo:hover {
 	color: snow;
 }
 
 .navbar-brand .title {
 	margin-bottom: 0;
+}
+
+.navbar-right{
+	display: flex;
+	align-items: center;
+}
+
+.image .navbar-pic {
+	max-height: 48px;
 }
 
 .sign-header {
@@ -49,6 +58,12 @@
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
+.sign-header, .wishlist-header{
+	text-align: center;
+	padding: 10px 0 20px 0;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid gainsboro;
+}
 
 .event-name {
 	margin-left: 0.5rem;
@@ -84,6 +99,15 @@
 
 .card-buttons {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	margin-top: .75rem;
+	flex-wrap: wrap;
+}
+
+.card-buttons button {
+	margin: 10px
+}
+
+.control .select select{
+	width: 836px;
 }
