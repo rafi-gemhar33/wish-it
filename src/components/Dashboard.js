@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import customFetch from "../utils/customFetch";
 import auth from "../utils/auth";
-import NewEvent from "./NewEvent";
+import NewEvent from "./pages/NewEvent";
 
 export default class Dashboard extends React.Component {
 	constructor() {

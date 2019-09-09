@@ -61,7 +61,7 @@ export default class Address extends React.Component {
 										onChange={this.handleInput}
 									/>
 									<span className="icon is-small is-left">
-										<i class="fas fa-phone-alt" />
+										<i className="fas fa-phone-alt" />
 									</span>
 								</div>
 							</div>
@@ -128,7 +128,7 @@ export default class Address extends React.Component {
 										onChange={this.handleInput}
 									/>
 									<span className="icon is-small is-left">
-										<i class="fas fa-globe-asia"></i>
+										<i className="fas fa-globe-asia"></i>
 									</span>
 								</div>
 							</div>

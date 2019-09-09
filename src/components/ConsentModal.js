@@ -36,7 +36,7 @@ export default class ConsentModal extends React.Component {
           <div onClick={this.toggleModal} className="modal-background" />
           <div className="modal-card">
             <header className="modal-card-head">
-              <p className="modal-card-title">Gift Consent Form...</p>
+              <p className="modal-card-title">Gift Form...</p>
               <button
                 onClick={this.toggleModal}
                 className="delete"
@@ -59,7 +59,7 @@ export default class ConsentModal extends React.Component {
               <div className="field">
                 <div className="control">
                   <label className="checkbox">
-                    <input onChange={this.agree} type="checkbox" />I agree to get you the gift you
+                    <input onChange={this.agree} type="checkbox" />I agree blah blah blah
                     pest...
                   </label>
                 </div>

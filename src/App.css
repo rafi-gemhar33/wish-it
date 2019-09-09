@@ -111,3 +111,7 @@
 .control .select select{
 	width: 836px;
 }
+
+.flex {
+	display: flex;
+}

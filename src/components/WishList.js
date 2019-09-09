@@ -125,6 +125,7 @@ export default class WishList extends React.Component {
 									<i className="fas fa-search" aria-hidden="true" />
 								</span>
 							</p>
+							
 							<p className="control">
 								<button className="button is-info is-medium">Search</button>
 							</p>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import customFetch from "../utils/customFetch";
-import auth from "../utils/auth";
+import customFetch from "../../utils/customFetch";
+import auth from "../../utils/auth";
 import Address from "./Address";
 
 export default class NewEvent extends React.Component {
@@ -10,7 +10,7 @@ export default class NewEvent extends React.Component {
 		super(props);
 		this.state = {
 			occasion: "wedding",
-			eventName: "funerals with cake",
+			eventName: "test1",
 			date: "20/11/11",
 			message: ""
 		};
@@ -75,8 +75,8 @@ export default class NewEvent extends React.Component {
 						</div>
 					</div> */}
 					<div className="field">
-						<div class="control has-icons-left has-icons-right">
-							<div class="select is-medium">
+						<div className="control has-icons-left has-icons-right">
+							<div className="select is-medium">
 								<span className="icon is-small is-left">
 									<i className="fas fa-gifts" />
 								</span>

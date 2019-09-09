@@ -31,7 +31,7 @@ export default class Gift extends React.Component {
 	render() {
 		return (
 			<div className="">
-				{/* <div className="base column is-three-fifths is-offset-one-fifth"> */}
+
 				<div className="sign-header">
 					<h1 className="subtitle is-2 ">Add New Gift</h1>
 				</div>
@@ -109,15 +109,8 @@ export default class Gift extends React.Component {
 							</span>
 							<span>New Gift</span>
 						</button>
-						{/* <Link className="button is-info is-large">
-                                <span className="icon">
-                                    <i className="fas fa-plus"></i>
-                                </span>
-                                <span>New Gift</span>
-                            </Link> */}
 					</div>
 				</div>
-				{/* </div> */}
 			</div>
 		);
 	}

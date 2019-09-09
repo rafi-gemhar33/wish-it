@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import HomePage from "./components/HomePage";
+import HomePage from "./components/pages/HomePage";
 import Header from "./components/Header";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
 import EditUser from "./components/EditUser";
 import WishList from "./components/WishList";
-import NewEvent from "./components/NewEvent";
-import Address from "./components/Address";
+import NewEvent from "./components/pages/NewEvent";
+import Address from "./components/pages/Address";
 import auth from "./utils/auth";
 import { UserContext } from "./utils/UserContext";
 import customFetch from "./utils/customFetch";
@@ -60,6 +60,7 @@ class App extends React.Component {
 						/>
 						<Route path="/wishList" component={WishList} />
 					</Switch>
+
 				</div>
 			</UserContext.Provider>
 		);

@@ -1,8 +1,8 @@
 import React from "react";
-import Dashboard from "./Dashboard";
+import Dashboard from "../Dashboard";
 import { Redirect } from "react-router-dom";
 
-import auth from "../utils/auth";
+import auth from "../../utils/auth";
 
 class HomePage extends React.Component {
 	constructor() {
