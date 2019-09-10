@@ -115,3 +115,6 @@
 .flex {
 	display: flex;
 }
+.main {
+	min-height: 65vh;
+}

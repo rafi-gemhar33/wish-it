@@ -116,11 +116,11 @@ export default class WishList extends React.Component {
 							<div className="box create-btn">
 							<div className="search-box field is-grouped">
 							<p className="control is-expanded has-icons-left">
-								<input
+								{/* <input
 									className="input is-medium"
 									type="text"
 									placeholder="Search a product from Amazon"
-								/>
+								/> */}
 								<span className="icon is-small is-left">
 									<i className="fas fa-search" aria-hidden="true" />
 								</span>
