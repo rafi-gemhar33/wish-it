@@ -1,33 +1,120 @@
-.App {
-  text-align: center;
+.title .logo, .title .logo:hover {
+	color: snow;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.navbar-brand .title {
+	margin-bottom: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar-right{
+	display: flex;
+	align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.image .navbar-pic {
+	max-height: 48px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sign-header {
+	text-align: center;
+	margin-bottom: 15px;
+}
+.address-header {
+	text-align: left;
+	margin: 10px 0;
+}
+
+.address-row{
+	display: flex;
+	justify-content: flex-start;
+}
+.address-row .field {
+	width: 49%;
+}
+
+.address-box .address-row div:first-of-type {
+	margin-right: 3%;
+}
+
+.sign-header .green-text {
+	color: cornflowerblue;
+}
+
+.create-btn {
+	text-align: center;
+}
+
+.search-box {
+	margin-top: 50px;
+}
+
+.gift-cards {
+	width: 30%;
+	margin-bottom: 30px;
+}
+
+.card-box {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+.sign-header, .wishlist-header{
+	text-align: center;
+	padding: 10px 0 20px 0;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid gainsboro;
+}
+
+.event-name {
+	margin-left: 0.5rem;
+}
+
+.event-item {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid gainsboro;
+}
+
+.event-item .event-link {
+	flex-grow: 99;
+	border: none;
+}
+
+.event-delete {
+	align-self: center;
+	/* margin: 0 10px; */
+}
+
+.delete-btn {
+	border: none;
+}
+
+.content { 
+	text-align: center;
+}
+
+.card-content .content .content-text {
+	margin-bottom: .3rem;
+}
+
+.card-buttons {
+	display: flex;
+	justify-content: center;
+	margin-top: .75rem;
+	flex-wrap: wrap;
+}
+
+.card-buttons button {
+	margin: 10px
+}
+
+.control .select select{
+	width: 836px;
+}
+
+.flex {
+	display: flex;
+}
+.main {
+	min-height: 65vh;
 }
